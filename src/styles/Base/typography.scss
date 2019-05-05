@@ -1,0 +1,41 @@
+$scale: 1.2;
+
+body {
+  line-height: 1.4;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Fjalla One';
+  margin-bottom: 20px;
+}
+
+h1 {
+  @include font-scale($scale, 6)
+}
+
+h2 {
+  @include font-scale($scale, 5)
+}
+
+h3 {
+  @include font-scale($scale, 4)
+}
+
+h4 {
+  @include font-scale($scale, 3)
+}
+
+h5 {
+  @include font-scale($scale, 2)
+}
+
+h6 {
+  @include font-scale($scale, 1)
+}
+
+body {
+  font-family: 'Noto Sans';
+  font-weight: 300;
+  @include font-scale($scale, 0)
+}
+

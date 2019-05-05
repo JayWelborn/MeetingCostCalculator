@@ -1,0 +1,50 @@
+@mixin bp-xl  {
+  @media (max-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin bp-large {
+  @media (max-width: $breakpoint-large) {
+    @content;
+  }
+}
+
+
+@mixin bp-medium {
+  @media (max-width: $breakpoint-medium) {
+    @content;
+  }
+}
+
+
+@mixin bp-small {
+  @media (max-width: $breakpoint-small) {
+    @content;
+  }
+}
+
+@mixin font-scale($scale, $exp) {
+
+  font-size: exponent($scale, $exp) + em;
+
+  @include bp-medium {
+    $scale-size: (exponent($scale, $exp) * .9);
+
+    @if $scale-size < 1 {
+      font-size: 1rem;
+    } @else {
+      font-size: $scale-size + rem;
+    }
+  }
+
+  @include bp-small {
+    $scale-size: (exponent($scale, $exp) * .8);
+
+    @if $scale-size < 1 {
+      font-size: 1rem;
+    } @else {
+      font-size: $scale-size + rem;
+    }
+  }
+}
