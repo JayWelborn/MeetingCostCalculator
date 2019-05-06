@@ -1,9 +1,16 @@
 import React, {Component} from 'react';
 
 export default class Header extends Component {
+constructor(props) {
+  super(props);
+}
+
   render() {
     return(
-      <h1>Hello Again Result</h1>
+      <section className="card card-body">
+        <h3 className="card-title">Total Cost: </h3>
+        <p>${this.props.result}</p>
+      </section>
     )
   }
 }
