@@ -5,32 +5,28 @@ import {
   Row
 } from 'react-bootstrap'
 
+import pay_table from '../data/pay_table.js';
+import ranks from '../data/ranks.js';
+import service_years from '../data/service_years.js';
+
 
 export default class AttendeeFormGroup extends Component {
 
   constructor(props) {
     super(props);
 
+    let options = []
+    ranks.forEach(function(rank) {
+      options.push(<option value="{rank}">{rank}</option>)
+    });
+    let service = []
+    service_years.forEach(function(year){
+      service.push(<option value="{year}">{year}</option>)
+    });
+
     this.state = {
-      options: [],
-      service: []
-    }
-
-    this.addOptions.bind(this);
-
-    this.addOptions("E", 9);
-    this.addOptions("W", 5);
-    this.addOptions("O", 10);
-
-    for (let i = 1; i <= 20; i++) {
-      this.state.service.push(<option>{i}</option>);
-    }
-    this.state.service.push(<option>20+</option>)
-  }
-
-  addOptions(prefix, cap) {
-    for (let i = 1; i <= cap; i++) {
-      this.state.options.push(<option value={prefix+i}>{prefix + i}</option>)
+      options: options,
+      service: service
     }
   }
 

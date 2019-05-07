@@ -1,0 +1,2 @@
+export default
+["2 or less", "Over 2", "Over 3", "Over 4", "Over 6", "Over 8", "Over 10", "Over 12", "Over 14", "Over 16", "Over 18", "Over 20", "Over 22", "Over 24", "Over 26", "Over 28", "Over 30", "Over 32", "Over 34", "Over 36", "Over 38", "Over 40"]
