@@ -16,18 +16,39 @@ export default class AttendeeFormGroup extends Component {
     super(props);
 
     let options = []
-    ranks.forEach(function(rank) {
-      options.push(<option value="{rank}">{rank}</option>)
+    ranks.forEach(function(rank, index) {
+      options.push(<option key={index} value={rank}>{rank}</option>)
     });
     let service = []
-    service_years.forEach(function(year){
-      service.push(<option value="{year}">{year}</option>)
+    service_years.forEach(function(year, index){
+      service.push(<option key={index} value={year}>{year}</option>)
     });
 
     this.state = {
       options: options,
-      service: service
-    }
+      service: service,
+      currentOption: "E-1",
+      currentService: "2 or less",
+      cost: 0
+    };
+
+    this.handleOptionChange = this.handleOptionChange.bind(this);
+    this.handleServiceChange = this.handleServiceChange.bind(this);
+  }
+
+  handleOptionChange(event) {
+    let option = event.target.value;
+    let costPerHour = pay_table[option][this.state.currentService] / 173;
+    this.setState({currentOption: option, cost: costPerHour});
+    this.props.handleChange(this.props.id, costPerHour);
+  }
+
+  handleServiceChange(event) {
+    event.preventDefault();
+    let service = event.target.value;
+    let costPerHour = pay_table[this.state.currentOption][service] / 173;
+    this.setState({currentService: service, cost: costPerHour});
+    this.props.handleChange(this.props.id, costPerHour);
   }
 
   render() {
@@ -36,13 +57,13 @@ export default class AttendeeFormGroup extends Component {
         <Row>
           <Col>
             <Form.Label>Rank: </Form.Label>
-            <Form.Control id="rank" as="select">
+            <Form.Control id="rank" as="select" onChange={this.handleOptionChange}>
               {this.state.options}
             </Form.Control>
           </Col>
           <Col>
             <Form.Label>Time in Service: </Form.Label>
-            <Form.Control id="service-time" as="select">
+            <Form.Control id="service-time" as="select" onChange={this.handleServiceChange}>
               {this.state.service}
             </Form.Control>
           </Col>

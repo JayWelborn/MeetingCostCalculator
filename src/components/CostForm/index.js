@@ -15,9 +15,10 @@ export default class CostForm extends Component {
 
     this.state = {
       attendees: [
-        <AttendeeFormGroup key={0} onChange={this.handleAttendeChange}/>,
-        <AttendeeFormGroup key={1} onChange={this.handleAttendeChange} />
-       ]
+        <AttendeeFormGroup key={0} id={0} handleChange={this.handleAttendeeChange}/>,
+        <AttendeeFormGroup key={1} id={1} handleChange={this.handleAttendeeChange} />
+       ],
+       cost: [0, 0]
     }
     this.submitForm = this.submitForm.bind(this);
     this.addAttendee = this.addAttendee.bind(this);
@@ -27,20 +28,28 @@ export default class CostForm extends Component {
 
   submitForm(event) {
     event.preventDefault();
-    this.props.handleSubmit(25);
+    let totalCost = 0;
+    this.state.cost.forEach(function(soldierCost) {
+      totalCost += soldierCost;
+    })
+    this.props.handleSubmit(totalCost.toFixed(2));
   }
 
-  handleAttendeChange = (key, cost) => {
-    this.setState({id: cost})
-    console.log(this.state);
+  handleAttendeeChange = (id, soldierCost) => {
+    let currentCosts = this.state.cost;
+    currentCosts[id] = soldierCost
+    this.setState({cost: currentCosts})
   }
 
   addAttendee(event) {
     event.preventDefault();
     this.setState({
       attendees: this.state.attendees.concat([
-        <AttendeeFormGroup key={this.nextAttendee} onChange={this.handleAttendeChange} />
-      ])
+        <AttendeeFormGroup
+          key={this.nextAttendee} id={this.nextAttendee} handleChange={this.handleAttendeeChange}
+         />
+      ]),
+      cost: this.state.cost.concat([0])
     })
     this.nextAttendee += 1;
   }
@@ -48,7 +57,8 @@ export default class CostForm extends Component {
   removeAttendee(event) {
     event.preventDefault();
     this.setState({
-      attendees: this.state.attendees.slice(0, this.nextAttendee)
+      attendees: this.state.attendees.slice(0, this.nextAttendee - 1),
+      cost: this.state.cost.slice(0, this.state.cost.length - 2)
     })
     if (this.nextAttendee > 0) {
         this.nextAttendee -= 1;
