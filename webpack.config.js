@@ -7,7 +7,7 @@ module.exports = {
   entry: path.join(__dirname, 'src', 'components', 'App.js'),
 
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'docs'),
     filename: 'bundle.js'
   },
 
@@ -33,7 +33,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'docs', 'index.html')
+      template: path.join(__dirname, 'public', 'index.html')
     })
   ]
 }
