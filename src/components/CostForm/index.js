@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {
   Button,
+  Card,
   Col,
   Form,
   Row
 } from 'react-bootstrap';
 
 import AttendeeFormGroup from './AttendeeFormGroup.js'
+import NumberDropDown from './NumberDropDown.js'
 
 export default class CostForm extends Component {
 
@@ -18,7 +20,8 @@ export default class CostForm extends Component {
         <AttendeeFormGroup key={0} id={0} handleChange={this.handleAttendeeChange}/>,
         <AttendeeFormGroup key={1} id={1} handleChange={this.handleAttendeeChange} />
        ],
-       cost: [0, 0]
+       cost: [0, 0],
+       hours: 1
     }
     this.submitForm = this.submitForm.bind(this);
     this.addAttendee = this.addAttendee.bind(this);
@@ -31,7 +34,8 @@ export default class CostForm extends Component {
     let totalCost = 0;
     this.state.cost.forEach(function(soldierCost) {
       totalCost += soldierCost;
-    })
+    });
+    totalCost *= this.state.hours;
     this.props.handleSubmit(totalCost.toFixed(2));
   }
 
@@ -39,6 +43,10 @@ export default class CostForm extends Component {
     let currentCosts = this.state.cost;
     currentCosts[id] = soldierCost
     this.setState({cost: currentCosts})
+  }
+
+  handleDropdownChange = (hours) => {
+    this.setState({hours: hours});
   }
 
   addAttendee(event) {
@@ -68,23 +76,31 @@ export default class CostForm extends Component {
   render() {
     let attendees = this.state.attendees;
     return (
-      <Form className="card card-body" onSubmit={this.submitForm}>
-        <h3 className="card-title">Attendees:</h3>
-        {attendees}
-        <Form.Group>
-          <Row>
-            <Col>
-              <Button variant="info" onClick={this.addAttendee}>Add Attendee</Button>
-            </Col>
-            <Col>
-              <Button variant="info" onClick={this.removeAttendee}>Remove</Button>
-            </Col>
-            <Col sm={6}>
-              <Button variant="primary" type="submit">Calculate</Button>
-            </Col>
-          </Row>
-        </Form.Group>
-      </Form>
+      <Card>
+        <Card.Body>
+          <h3>Event Information</h3>
+          <Form onSubmit={this.submitForm}>
+            <Card.Title>Duration:</Card.Title>
+            <NumberDropDown maxNum={10} handleChange={this.handleDropdownChange} />
+            <Card.Title>Attendees:</Card.Title>
+            {attendees}
+            <Form.Group>
+              <Row>
+                <Col>
+                  <Button variant="info" onClick={this.addAttendee}>Add Attendee</Button>
+                </Col>
+                <Col>
+                  <Button variant="info" onClick={this.removeAttendee}>Remove</Button>
+                </Col>
+                <Col sm={6}>
+                  <Button variant="primary" type="submit">Calculate</Button>
+                </Col>
+              </Row>
+            </Form.Group>
+          </Form>
+        </Card.Body>
+      </Card>
+
      );
   }
 }
