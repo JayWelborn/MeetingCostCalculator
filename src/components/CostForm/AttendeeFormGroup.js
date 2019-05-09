@@ -56,7 +56,8 @@ export default class AttendeeFormGroup extends Component {
   }
 
   handleQuantityChange = (quantity) => {
-    this.setState({quantity: quantity})
+    this.setState({quantity: quantity});
+    this.props.handleChange(this.props.id, costPerHour);
   }
 
   render() {

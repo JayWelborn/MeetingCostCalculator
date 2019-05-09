@@ -20,7 +20,7 @@ export default class CostForm extends Component {
         <AttendeeFormGroup key={0} id={0} handleChange={this.handleAttendeeChange}/>,
         <AttendeeFormGroup key={1} id={1} handleChange={this.handleAttendeeChange} />
        ],
-       cost: [0, 0],
+       cost: [9.72, 9.72],
        hours: 1
     }
     this.submitForm = this.submitForm.bind(this);
@@ -57,7 +57,7 @@ export default class CostForm extends Component {
           key={this.nextAttendee} id={this.nextAttendee} handleChange={this.handleAttendeeChange}
          />
       ]),
-      cost: this.state.cost.concat([0])
+      cost: this.state.cost.concat([9.72])
     })
     this.nextAttendee += 1;
   }
@@ -66,7 +66,7 @@ export default class CostForm extends Component {
     event.preventDefault();
     this.setState({
       attendees: this.state.attendees.slice(0, this.nextAttendee - 1),
-      cost: this.state.cost.slice(0, this.state.cost.length - 2)
+      cost: this.state.cost.slice(0, this.state.cost.length - 1)
     })
     if (this.nextAttendee > 0) {
         this.nextAttendee -= 1;
