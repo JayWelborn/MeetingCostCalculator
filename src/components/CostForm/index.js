@@ -80,10 +80,16 @@ export default class CostForm extends Component {
         <Card.Body>
           <h3>Event Information</h3>
           <Form onSubmit={this.submitForm}>
-            <Card.Title>Duration:</Card.Title>
-            <NumberDropDown maxNum={10} handleChange={this.handleDropdownChange} />
-            <Card.Title>Attendees:</Card.Title>
-            {attendees}
+            <Form.Group>
+              <Card.Title>Duration (in hours):</Card.Title>
+              <NumberDropDown maxNum={10} handleChange={this.handleDropdownChange} />
+            </Form.Group>
+
+            <Form.Group>
+              <Card.Title>Attendees:</Card.Title>
+              {attendees}
+            </Form.Group>
+
             <Form.Group>
               <Row>
                 <Col>
@@ -92,7 +98,7 @@ export default class CostForm extends Component {
                 <Col>
                   <Button variant="info" onClick={this.removeAttendee}>Remove</Button>
                 </Col>
-                <Col sm={6}>
+                <Col>
                   <Button variant="primary" type="submit">Calculate</Button>
                 </Col>
               </Row>

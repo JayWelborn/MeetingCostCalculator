@@ -5,6 +5,7 @@ import {
   Row
 } from 'react-bootstrap'
 
+import NumberDropDown from './NumberDropDown.js'
 import pay_table from '../data/pay_table.js';
 import ranks from '../data/ranks.js';
 import service_years from '../data/service_years.js';
@@ -29,11 +30,13 @@ export default class AttendeeFormGroup extends Component {
       service: service,
       currentOption: "E-1",
       currentService: "2 or less",
-      cost: 0
+      cost: 9.72,
+      quantity: 1
     };
 
     this.handleOptionChange = this.handleOptionChange.bind(this);
     this.handleServiceChange = this.handleServiceChange.bind(this);
+    this.handleQuantityChange = this.handleQuantityChange.bind(this);
   }
 
   handleOptionChange(event) {
@@ -47,8 +50,13 @@ export default class AttendeeFormGroup extends Component {
     event.preventDefault();
     let service = event.target.value;
     let costPerHour = pay_table[this.state.currentOption][service] / 173;
+    costPerHour *= this.state.quantity;
     this.setState({currentService: service, cost: costPerHour});
     this.props.handleChange(this.props.id, costPerHour);
+  }
+
+  handleQuantityChange = (quantity) => {
+    this.setState({quantity: quantity})
   }
 
   render() {
@@ -56,16 +64,20 @@ export default class AttendeeFormGroup extends Component {
       <Form.Group>
         <Row>
           <Col>
-            <Form.Label>Rank: </Form.Label>
+            <Form.Label>Rank:</Form.Label>
             <Form.Control id="rank" as="select" onChange={this.handleOptionChange}>
               {this.state.options}
             </Form.Control>
           </Col>
           <Col>
-            <Form.Label>Time in Service: </Form.Label>
+            <Form.Label>Time in Service:</Form.Label>
             <Form.Control id="service-time" as="select" onChange={this.handleServiceChange}>
               {this.state.service}
             </Form.Control>
+          </Col>
+          <Col>
+            <Form.Label>Quantity:</Form.Label>
+            <NumberDropDown maxNum={10} handleChange={this.handleQuantityChange} />
           </Col>
         </Row>
       </Form.Group>
