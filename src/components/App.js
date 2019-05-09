@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import CostForm from './CostForm';
 import Header from './Header';
 import Result from './Result';
-import '../styles/App.scss'
+import '../styles/App.scss';
 
 
 if (module.hot) {

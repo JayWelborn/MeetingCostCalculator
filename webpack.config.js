@@ -52,6 +52,11 @@ module.exports = {
         to: path.join(__dirname, 'build', 'jss'),
         type: 'dir'
       },
+      {
+        from: path.join(__dirname, 'public', 'favicon.ico'),
+        to: path.join(__dirname, 'build', 'favicon.ico'),
+        type: 'file'
+      }
     ])
   ]
 }
