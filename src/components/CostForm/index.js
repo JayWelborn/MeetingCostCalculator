@@ -17,8 +17,8 @@ export default class CostForm extends Component {
 
     this.state = {
       attendees: [
-        <AttendeeFormGroup key={0} id={0} handleChange={this.handleAttendeeChange}/>,
-        <AttendeeFormGroup key={1} id={1} handleChange={this.handleAttendeeChange} />
+        <AttendeeFormGroup key={0} id={0} handleChange={this.handleAttendeeChange}/>, <hr />,
+        <AttendeeFormGroup key={1} id={1} handleChange={this.handleAttendeeChange} />, <hr />
        ],
        cost: [9.72, 9.72],
        hours: 1
@@ -55,7 +55,7 @@ export default class CostForm extends Component {
       attendees: this.state.attendees.concat([
         <AttendeeFormGroup
           key={this.nextAttendee} id={this.nextAttendee} handleChange={this.handleAttendeeChange}
-         />
+         />, <hr />
       ]),
       cost: this.state.cost.concat([9.72])
     })
@@ -83,6 +83,7 @@ export default class CostForm extends Component {
             <Form.Group>
               <Card.Title>Duration (in hours):</Card.Title>
               <NumberDropDown maxNum={10} handleChange={this.handleDropdownChange} />
+              <hr />
             </Form.Group>
 
             <Form.Group>
