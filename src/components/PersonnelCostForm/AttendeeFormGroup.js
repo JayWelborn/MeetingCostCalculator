@@ -31,28 +31,46 @@ export default class AttendeeFormGroup extends Component {
       currentOption: "E-1",
       currentService: "2 or less",
       cost: 9.72,
-      quantity: 1
+      quantity: 1,
+      valid: true
     };
 
     this.handleOptionChange = this.handleOptionChange.bind(this);
     this.handleServiceChange = this.handleServiceChange.bind(this);
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
+    this.updateCost = this.updateCost.bind(this);
+  }
+
+  updateCost(option, service) {
+    if (pay_table[option][service] !== null) {
+      let costPerHour = pay_table[option][service] / 173;
+      costPerHour *= this.state.quantity;
+      this.setState({currentOption: option, currentService: service, cost: costPerHour, valid: true});
+      this.props.handleChange(this.props.id, costPerHour);
+    } else {
+      console.log("invalid");
+      this.setState({valid: false, cost: 0});
+      this.props.handleChange(this.props.id, 0);
+    }
   }
 
   handleOptionChange(event) {
+    event.preventDefault();
     let option = event.target.value;
-    let costPerHour = pay_table[option][this.state.currentService] / 173;
-    this.setState({currentOption: option, cost: costPerHour});
-    this.props.handleChange(this.props.id, costPerHour);
+    this.updateCost(option, this.state.currentService);
+    // let costPerHour = pay_table[option][this.state.currentService] / 173;
+    // this.setState({currentOption: option, cost: costPerHour});
+    // this.props.handleChange(this.props.id, costPerHour);
   }
 
   handleServiceChange(event) {
     event.preventDefault();
     let service = event.target.value;
-    let costPerHour = pay_table[this.state.currentOption][service] / 173;
-    costPerHour *= this.state.quantity;
-    this.setState({currentService: service, cost: costPerHour});
-    this.props.handleChange(this.props.id, costPerHour);
+    this.updateCost(this.state.currentOption, service);
+    // let costPerHour = pay_table[this.state.currentOption][service] / 173;
+    // costPerHour *= this.state.quantity;
+    // this.setState({currentService: service, cost: costPerHour});
+    // this.props.handleChange(this.props.id, costPerHour);
   }
 
   handleQuantityChange = (quantity) => {
@@ -62,8 +80,10 @@ export default class AttendeeFormGroup extends Component {
   }
 
   render() {
+    console.log(pay_table)
+    let className = this.state.valid ? "" : "invalid"
     return (
-      <Form.Group>
+      <Form.Group className={className}>
         <Row>
           <Col>
             <Form.Label>Rank:</Form.Label>
