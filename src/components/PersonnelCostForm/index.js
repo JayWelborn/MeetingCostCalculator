@@ -17,59 +17,65 @@ export default class PersonnelCostForm extends Component {
 
     this.state = {
       attendees: [
-        <AttendeeFormGroup key={0} id={0} handleChange={this.handleAttendeeChange}/>, <hr />,
-        <AttendeeFormGroup key={1} id={1} handleChange={this.handleAttendeeChange} />, <hr />
        ],
-       cost: [9.72, 9.72],
+       cost: [],
        hours: 1
     }
-    this.submitForm = this.submitForm.bind(this);
+
+    this.computeCost = this.computeCost.bind(this);
     this.addAttendee = this.addAttendee.bind(this);
     this.removeAttendee = this.removeAttendee.bind(this);
-    this.nextAttendee = 2;
+    this.nextAttendee = 0;
   }
 
-  submitForm(event) {
-    event.preventDefault();
+  computeCost(costs, hours) {
     let totalCost = 0;
-    this.state.cost.forEach(function(soldierCost) {
-      totalCost += soldierCost;
-    });
-    totalCost *= this.state.hours;
-    this.props.handleSubmit(totalCost.toFixed(2));
+    if (costs.length > 0){
+      costs.forEach(function(soldierCost) {
+        totalCost += soldierCost;
+      });
+      totalCost *= hours;
+    }
+    this.props.updateCost(totalCost);
   }
 
   handleAttendeeChange = (id, soldierCost) => {
     let currentCosts = this.state.cost;
-    currentCosts[id] = soldierCost
-    this.setState({cost: currentCosts})
+    currentCosts[id] = soldierCost;
+    this.setState({cost: currentCosts});
+    this.computeCost(currentCosts, this.state.hours);
   }
 
   handleDropdownChange = (hours) => {
     this.setState({hours: hours});
+    this.computeCost(this.state.cost, hours);
   }
 
   addAttendee(event) {
     event.preventDefault();
+    let newCosts = this.state.cost.concat([9.72]);
     this.setState({
       attendees: this.state.attendees.concat([
         <AttendeeFormGroup
           key={this.nextAttendee} id={this.nextAttendee} handleChange={this.handleAttendeeChange}
          />, <hr />
       ]),
-      cost: this.state.cost.concat([9.72])
+      cost: newCosts
     })
     this.nextAttendee += 1;
+    this.computeCost(newCosts, this.state.hours);
   }
 
   removeAttendee(event) {
     event.preventDefault();
-    this.setState({
-      attendees: this.state.attendees.slice(0, this.nextAttendee - 1),
-      cost: this.state.cost.slice(0, this.state.cost.length - 1)
-    })
     if (this.nextAttendee > 0) {
-        this.nextAttendee -= 1;
+      this.nextAttendee -= 1;
+      let newCosts = this.state.cost.slice(0, this.state.cost.length - 1)
+      this.setState({
+        attendees: this.state.attendees.slice(0, this.nextAttendee),
+        cost: newCosts
+      })
+      this.computeCost(newCosts, this.state.hours);
     }
   }
 
@@ -80,7 +86,7 @@ export default class PersonnelCostForm extends Component {
         <Card>
           <Card.Body>
             <h3>Event Information</h3>
-            <Form onSubmit={this.submitForm}>
+            <Form>
               <Form.Group>
                 <Card.Title>Duration (in hours):</Card.Title>
                 <NumberDropDown maxNum={10} handleChange={this.handleDropdownChange} />
@@ -99,9 +105,6 @@ export default class PersonnelCostForm extends Component {
                   </Col>
                   <Col>
                     <Button variant="info" onClick={this.removeAttendee}>Remove</Button>
-                  </Col>
-                  <Col>
-                    <Button variant="primary" type="submit">Calculate</Button>
                   </Col>
                 </Row>
               </Form.Group>

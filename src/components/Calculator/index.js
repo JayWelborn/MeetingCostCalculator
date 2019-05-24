@@ -10,10 +10,40 @@ import PersonnelCostForm from '../PersonnelCostForm';
 import TotalCostDisplay from './TotalCostDisplay';
 
 export default class Calculator extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      personnelCost: 0,
+      equipmentCost: 0,
+      totalCost: 0.00
+    }
+
+    this.updatePersonnelCost = this.updatePersonnelCost.bind(this);
+    this.updateEquipmentCost = this.updateEquipmentCost.bind(this);
+  }
+
+  updatePersonnelCost = (cost) => {
+    let totalCost = this.state.equipmentCost + cost;
+    totalCost = totalCost.toFixed(2);
+    this.setState({
+      personnelCost: cost,
+      totalCost: totalCost
+    });
+  }
+
+  updateEquipmentCost = (cost) => {
+    let totalCost = this.state.personnelCost + cost;
+    this.setState({
+      equipmentCost: cost,
+      totalCost: totalCost
+    });
+  }
+
   render() {
+    let totalCost = this.state.totalCost;
     return (
-      <div class="container">
-        <TotalCostDisplay />
+      <section>
+        <TotalCostDisplay totalCost={totalCost} />
         <TabContainer id="left-tabs-example" defaultActiveKey="overview">
           <Row>
             <Col sm={2}>
@@ -30,16 +60,16 @@ export default class Calculator extends Component {
                   <Overview />
                 </TabPane>
                 <TabPane eventKey="personnel">
-                  <PersonnelCostForm />
+                  <PersonnelCostForm updateCost={this.updatePersonnelCost} />
                 </TabPane>
                 <TabPane eventKey="equipment">
-                  <EquipmentCostForm />
+                  <EquipmentCostForm updateCost={this.updateEquipmentCost} />
                 </TabPane>
               </TabContent>
             </Col>
           </Row>
         </TabContainer>
-      </div>
+      </section>
     );
   }
 }
