@@ -9,7 +9,8 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'build'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
 
   module: {
@@ -30,6 +31,10 @@ module.exports = {
         ]
       }
     ]
+  },
+
+  devServer: {
+    historyApiFallback: true
   },
 
   plugins: [

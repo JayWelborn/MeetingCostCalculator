@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import CostForm from './CostForm';
-import Header from './Header';
-import Result from './Result';
+
+import {BrowserRouter} from 'react-router-dom';
+
+import NavBar from './NavBar'
+import Routes from './Routes'
 import '../styles/App.scss';
 
 
@@ -21,18 +23,12 @@ class App extends Component {
     }
   }
 
-  handleSubmit = (result) => {
-    this.setState({result: result, submitted: true})
-  }
-
   render() {
-    let result = this.state.submitted ? <Result result={this.state.result} /> : ""
     return(
-      <main className="container">
-        <Header />
-        <CostForm handleSubmit={this.handleSubmit} />
-        {result}
-      </main>
+      <BrowserRouter>
+        <NavBar />
+        <Routes />
+      </BrowserRouter>
      );
   }
 }

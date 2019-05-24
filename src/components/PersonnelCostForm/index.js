@@ -10,7 +10,7 @@ import {
 import AttendeeFormGroup from './AttendeeFormGroup.js'
 import NumberDropDown from './NumberDropDown.js'
 
-export default class CostForm extends Component {
+export default class PersonnelCostForm extends Component {
 
   constructor(props) {
     super(props)
@@ -76,37 +76,39 @@ export default class CostForm extends Component {
   render() {
     let attendees = this.state.attendees;
     return (
-      <Card>
-        <Card.Body>
-          <h3>Event Information</h3>
-          <Form onSubmit={this.submitForm}>
-            <Form.Group>
-              <Card.Title>Duration (in hours):</Card.Title>
-              <NumberDropDown maxNum={10} handleChange={this.handleDropdownChange} />
-              <hr />
-            </Form.Group>
+      <section className="container">
+        <Card>
+          <Card.Body>
+            <h3>Event Information</h3>
+            <Form onSubmit={this.submitForm}>
+              <Form.Group>
+                <Card.Title>Duration (in hours):</Card.Title>
+                <NumberDropDown maxNum={10} handleChange={this.handleDropdownChange} />
+                <hr />
+              </Form.Group>
 
-            <Form.Group>
-              <Card.Title>Attendees:</Card.Title>
-              {attendees}
-            </Form.Group>
+              <Form.Group>
+                <Card.Title>Attendees:</Card.Title>
+                {attendees}
+              </Form.Group>
 
-            <Form.Group>
-              <Row>
-                <Col>
-                  <Button variant="info" onClick={this.addAttendee}>Add Attendee</Button>
-                </Col>
-                <Col>
-                  <Button variant="info" onClick={this.removeAttendee}>Remove</Button>
-                </Col>
-                <Col>
-                  <Button variant="primary" type="submit">Calculate</Button>
-                </Col>
-              </Row>
-            </Form.Group>
-          </Form>
-        </Card.Body>
-      </Card>
+              <Form.Group>
+                <Row>
+                  <Col>
+                    <Button variant="info" onClick={this.addAttendee}>Add Attendee</Button>
+                  </Col>
+                  <Col>
+                    <Button variant="info" onClick={this.removeAttendee}>Remove</Button>
+                  </Col>
+                  <Col>
+                    <Button variant="primary" type="submit">Calculate</Button>
+                  </Col>
+                </Row>
+              </Form.Group>
+            </Form>
+          </Card.Body>
+        </Card>
+      </section>
 
      );
   }
