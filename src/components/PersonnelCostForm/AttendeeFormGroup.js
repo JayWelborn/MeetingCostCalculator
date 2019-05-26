@@ -48,7 +48,6 @@ export default class AttendeeFormGroup extends Component {
       this.setState({currentOption: option, currentService: service, cost: costPerHour, valid: true});
       this.props.handleChange(this.props.id, costPerHour);
     } else {
-      console.log("invalid");
       this.setState({valid: false, cost: 0});
       this.props.handleChange(this.props.id, 0);
     }
@@ -80,7 +79,6 @@ export default class AttendeeFormGroup extends Component {
   }
 
   render() {
-    console.log(pay_table)
     let className = this.state.valid ? "" : "invalid"
     return (
       <Form.Group className={className}>

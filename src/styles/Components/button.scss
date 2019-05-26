@@ -1,0 +1,8 @@
+button.btn {
+  border-radius: 50px;
+}
+
+button.btn-info {
+  @include info-button-gradient;
+  @include box-shadow($shadow);
+}

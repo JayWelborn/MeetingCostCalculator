@@ -7,6 +7,8 @@ import {
   Row
 } from 'react-bootstrap';
 
+const uuidv4 = require('uuid/v4');
+
 import AttendeeFormGroup from './AttendeeFormGroup.js'
 import NumberDropDown from './NumberDropDown.js'
 
@@ -26,6 +28,7 @@ export default class PersonnelCostForm extends Component {
     this.addAttendee = this.addAttendee.bind(this);
     this.removeAttendee = this.removeAttendee.bind(this);
     this.nextAttendee = 0;
+    this.currentKey = 0;
   }
 
   computeCost(costs, hours) {
@@ -57,12 +60,13 @@ export default class PersonnelCostForm extends Component {
     this.setState({
       attendees: this.state.attendees.concat([
         <AttendeeFormGroup
-          key={this.nextAttendee} id={this.nextAttendee} handleChange={this.handleAttendeeChange}
+          key={this.currentKey} id={this.nextAttendee} handleChange={this.handleAttendeeChange}
          />, <hr />
       ]),
       cost: newCosts
     })
     this.nextAttendee += 1;
+    this.currentKey += 1;
     this.computeCost(newCosts, this.state.hours);
   }
 
@@ -100,10 +104,10 @@ export default class PersonnelCostForm extends Component {
 
               <Form.Group>
                 <Row>
-                  <Col>
-                    <Button variant="info" onClick={this.addAttendee}>Add Attendee</Button>
+                  <Col sm="3">
+                    <Button variant="info" onClick={this.addAttendee}>Add</Button>
                   </Col>
-                  <Col>
+                  <Col sm="3">
                     <Button variant="info" onClick={this.removeAttendee}>Remove</Button>
                   </Col>
                 </Row>

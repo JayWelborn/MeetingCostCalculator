@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: '/'
+    // publicPath: 'https://jaywelborn.github.io/MeetingCostCalculator/'
   },
 
   module: {
@@ -28,6 +28,12 @@ module.exports = {
           "style-loader",
           "css-loader",
           "sass-loader"
+        ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
         ]
       }
     ]

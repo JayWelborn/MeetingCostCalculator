@@ -1,0 +1,4 @@
+.nav-pills .nav-link {
+  background-color: white;
+  @include box-shadow($shadow)
+}

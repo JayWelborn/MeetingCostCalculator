@@ -13,8 +13,8 @@ export default class Routes extends Component {
     return (
       <main className="container">
         <Switch>
-          <Route exact path="/" component={Home} />
           <Route path="/calculator" component={Calculator} />
+          <Route path="/" component={Home} />
         </Switch>
       </main>
     );
