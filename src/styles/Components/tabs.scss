@@ -2,3 +2,7 @@
   background-color: white;
   @include box-shadow($shadow)
 }
+
+.nav-pills .nav-link.active {
+  @include blue-gradient;
+}

@@ -86,7 +86,6 @@ export default class PersonnelCostForm extends Component {
   render() {
     let attendees = this.state.attendees;
     return (
-      <section className="container">
         <Card>
           <Card.Body>
             <h3>Event Information</h3>
@@ -115,7 +114,6 @@ export default class PersonnelCostForm extends Component {
             </Form>
           </Card.Body>
         </Card>
-      </section>
 
      );
   }
