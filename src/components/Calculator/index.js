@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense} from 'react';
 
 import {
   Col, ListGroup, Nav, Tab, TabContainer, TabContent, TabPane, Row
 } from 'react-bootstrap';
 
-import EquipmentCostForm from '../EquipmentCostForm';
 import JSChartOptions from './ChartOptions.js';
-import Overview from './Overview';
-import PersonnelCostForm from '../PersonnelCostForm';
 import TotalCostDisplay from './TotalCostDisplay';
+
+const EquipmentCostForm   = React.lazy(() => import('../EquipmentCostForm'));
+const Overview            = React.lazy(() => import('./Overview'));
+const PersonnelCostForm   = React.lazy(() => import('../PersonnelCostForm'));
 
 export default class Calculator extends Component {
   constructor(props) {
@@ -102,13 +103,19 @@ export default class Calculator extends Component {
             <Col sm={10}>
               <TabContent>
                 <TabPane eventKey="overview">
-                  <Overview options={this.state.options}/>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Overview options={this.state.options}/>
+                  </Suspense>
                 </TabPane>
                 <TabPane eventKey="personnel">
-                  <PersonnelCostForm updateCost={this.updatePersonnelCost} />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <PersonnelCostForm updateCost={this.updatePersonnelCost} />
+                  </Suspense>
                 </TabPane>
                 <TabPane eventKey="equipment">
-                  <EquipmentCostForm updateCost={this.updateEquipmentCost} />
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <EquipmentCostForm updateCost={this.updateEquipmentCost} />
+                  </Suspense>
                 </TabPane>
               </TabContent>
             </Col>
