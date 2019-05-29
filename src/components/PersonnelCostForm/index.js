@@ -7,8 +7,6 @@ import {
   Row
 } from 'react-bootstrap';
 
-const uuidv4 = require('uuid/v4');
-
 import AttendeeFormGroup from './AttendeeFormGroup.js'
 import NumberDropDown from './NumberDropDown.js'
 
