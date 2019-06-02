@@ -7,6 +7,7 @@ import {
 import JSChartOptions from './ChartOptions.js';
 import TotalCostDisplay from './TotalCostDisplay';
 
+const AmmoCostForm        = React.lazy(() => import('../AmmoCostForm'));
 const EquipmentCostForm   = React.lazy(() => import('../EquipmentCostForm'));
 const Overview            = React.lazy(() => import('./Overview'));
 const PersonnelCostForm   = React.lazy(() => import('../PersonnelCostForm'));
@@ -85,6 +86,15 @@ export default class Calculator extends Component {
     )
   }
 
+  updateAmmoCost = (cost) => {
+    this.updateCost(
+      this.state.personnelCost,
+      this.state.equipmentCost,
+      cost.toFixed(2),
+      this.state.facilitiesCost
+    )
+  }
+
   render() {
     let totalCost = this.state.totalCost;
     return (
@@ -97,6 +107,7 @@ export default class Calculator extends Component {
                 <Nav.Link eventKey="overview">Overview</Nav.Link>
                 <Nav.Link eventKey="personnel">Personnel</Nav.Link>
                 <Nav.Link eventKey="equipment">Equipment</Nav.Link>
+                <Nav.Link eventKey="ammunition">Ammunition</Nav.Link>
                 <Nav.Link disabled>More...</Nav.Link>
               </Nav>
             </Col>
@@ -109,12 +120,19 @@ export default class Calculator extends Component {
                 </TabPane>
                 <TabPane eventKey="personnel">
                   <Suspense fallback={<div>Loading...</div>}>
-                    <PersonnelCostForm updateCost={this.updatePersonnelCost} />
+                    <PersonnelCostForm
+                      updateCost={this.updatePersonnelCost}
+                    />
                   </Suspense>
                 </TabPane>
                 <TabPane eventKey="equipment">
                   <Suspense fallback={<div>Loading...</div>}>
                     <EquipmentCostForm updateCost={this.updateEquipmentCost} />
+                  </Suspense>
+                </TabPane>
+                <TabPane eventKey="ammunition">
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <AmmoCostForm updateCost={this.updateAmmoCost} />
                   </Suspense>
                 </TabPane>
               </TabContent>

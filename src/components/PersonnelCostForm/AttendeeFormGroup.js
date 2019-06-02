@@ -57,19 +57,12 @@ export default class AttendeeFormGroup extends Component {
     event.preventDefault();
     let option = event.target.value;
     this.updateCost(option, this.state.currentService);
-    // let costPerHour = pay_table[option][this.state.currentService] / 173;
-    // this.setState({currentOption: option, cost: costPerHour});
-    // this.props.handleChange(this.props.id, costPerHour);
   }
 
   handleServiceChange(event) {
     event.preventDefault();
     let service = event.target.value;
     this.updateCost(this.state.currentOption, service);
-    // let costPerHour = pay_table[this.state.currentOption][service] / 173;
-    // costPerHour *= this.state.quantity;
-    // this.setState({currentService: service, cost: costPerHour});
-    // this.props.handleChange(this.props.id, costPerHour);
   }
 
   handleQuantityChange = (quantity) => {
@@ -100,6 +93,7 @@ export default class AttendeeFormGroup extends Component {
             <NumberDropDown maxNum={10} handleChange={this.handleQuantityChange} />
           </Col>
         </Row>
+        <hr/>
       </Form.Group>
     );
   }

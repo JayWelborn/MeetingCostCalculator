@@ -16,8 +16,7 @@ export default class PersonnelCostForm extends Component {
     super(props)
 
     this.state = {
-      attendees: [
-       ],
+      attendees: [],
        cost: [],
        hours: 1
     }
@@ -57,14 +56,11 @@ export default class PersonnelCostForm extends Component {
     let newCosts = this.state.cost.concat([9.72]);
     this.setState({
       attendees: this.state.attendees.concat([
-        <AttendeeFormGroup
-          key={this.currentKey} id={this.nextAttendee} handleChange={this.handleAttendeeChange}
-         />, <hr />
+        { id: this.nextAttendee }
       ]),
       cost: newCosts
     })
     this.nextAttendee += 1;
-    this.currentKey += 1;
     this.computeCost(newCosts, this.state.hours);
   }
 
@@ -94,10 +90,13 @@ export default class PersonnelCostForm extends Component {
                 <hr />
               </Form.Group>
 
-              <Form.Group>
-                <Card.Title>Attendees:</Card.Title>
-                {attendees}
-              </Form.Group>
+              <Card.Title>Attendees:</Card.Title>
+              {
+                attendees.map(attendee =>
+                  <AttendeeFormGroup
+                    key={attendee.id} id={attendee.id} handleChange={this.handleAttendeeChange}
+                  />)
+              }
 
               <Form.Group>
                 <Row>
