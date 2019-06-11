@@ -49,7 +49,7 @@ export default class AttendeeFormGroup extends Component {
       this.props.handleChange(this.props.id, costPerHour);
     } else {
       this.setState({valid: false, cost: 0});
-      this.props.handleChange(this.props.id, 0);
+      this.props.handleChange(this.props.index, 0);
     }
   }
 

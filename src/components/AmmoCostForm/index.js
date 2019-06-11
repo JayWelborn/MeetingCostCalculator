@@ -62,9 +62,9 @@ export default class AmmoCostForm extends Component {
     this.props.updateCost(totalCost);
   }
 
-  handleChange = (id, cost) => {
+  handleChange = (index, cost) => {
     let newCosts = this.state.costs;
-    newCosts[id] = cost;
+    newCosts[index] = cost;
     this.setState({costs: newCosts})
     this.computeCost(newCosts);
   }
@@ -78,11 +78,11 @@ export default class AmmoCostForm extends Component {
           <Form>
             <Card.Title>Ammunition Types:</Card.Title>
             {
-              ammoTypes.map(ammo => [
+              ammoTypes.map(ammo =>
                 <AmmoFormGroup
-                  key={ammo.id} id={ammo.id} handleChange={this.handleChange}
+                  key={ammo.id} index={ammo.id} handleChange={this.handleChange}
                 />
-               ])
+              )
             }
             <Form.Group>
               <Row>

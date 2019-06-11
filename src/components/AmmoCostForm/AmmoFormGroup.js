@@ -37,7 +37,7 @@ export default class AmmoFormGroup extends Component {
       costPerUnit: costPerUnit,
       quantity: quantity
     })
-    this.props.handleChange(this.props.id, costPerUnit * quantity);
+    this.props.handleChange(this.props.index, costPerUnit * quantity);
   }
 
   render() {

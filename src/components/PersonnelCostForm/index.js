@@ -94,7 +94,7 @@ export default class PersonnelCostForm extends Component {
               {
                 attendees.map(attendee =>
                   <AttendeeFormGroup
-                    key={attendee.id} id={attendee.id} handleChange={this.handleAttendeeChange}
+                    key={attendee.id} index={attendee.id} handleChange={this.handleAttendeeChange}
                   />)
               }
 
